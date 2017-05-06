@@ -760,6 +760,7 @@ MonoBehaviour:
   idleTexture: {fileID: 2800000, guid: 473367458ba0fdf4dbf70fffa004d839, type: 3}
   idleTexture2: {fileID: 2800000, guid: b00fafdce184a724f9a4e57cb37b553c, type: 3}
   turningTexture: {fileID: 2800000, guid: 9ad6dbfde79c3464db4aabf60a44e79a, type: 3}
+  watchingTexture: {fileID: 2800000, guid: 9ad6dbfde79c3464db4aabf60a44e79a, type: 3}
 --- !u!1 &1071801220
 GameObject:
   m_ObjectHideFlags: 0

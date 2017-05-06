@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour {
     public Texture idleTexture;
     public Texture idleTexture2;
     public Texture turningTexture;
+    public Texture watchingTexture;
 
     void Start ()
     {
@@ -55,6 +56,7 @@ public class EnemyController : MonoBehaviour {
                         Debug.Log("Looking away");
                         randomizeTurnTime();
                         setTexture(idleTexture);
+                        invert();
                         break;
                     }
                 case State.LookingAway:
@@ -70,6 +72,8 @@ public class EnemyController : MonoBehaviour {
                         m_state = State.LookingAtPlayer;
                         Debug.Log("Watching");
                         randomizeTurnTime();
+                        setTexture(idleTexture);
+                        invert();
                         break;
                     }
             }
@@ -84,6 +88,13 @@ public class EnemyController : MonoBehaviour {
     private void setTexture(Texture tex)
     {
         GetComponent<MeshRenderer>().material.mainTexture = tex;
+    }
+
+    private void invert()
+    {
+        Vector3 scale = transform.localScale;
+        scale.x *= -1f;
+        transform.localScale = scale;
     }
 
     public bool lookingAtPlayer()
