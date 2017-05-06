@@ -25,9 +25,7 @@ public class PlayerController : MonoBehaviour {
 	void Update ()
     {
         movement();
-        //armRotation();
-
-        Invoke("detectReach", 2.0f);
+        armRotation();
 	}
     
     private void movement()
@@ -49,7 +47,7 @@ public class PlayerController : MonoBehaviour {
             }
 
             transform.position = pos;
-            //detectReach();
+            detectReach();
         }
     }
 
@@ -67,8 +65,16 @@ public class PlayerController : MonoBehaviour {
 
     private void detectReach()
     {
-        m_cameraController.setZoom(true);
-        m_reachedGlass = true;
+        GameObject arm = transform.FindChild("ArmPivot/Arm").gameObject;
+        
+        foreach (Collider coll in Physics.OverlapSphere(arm.transform.position, arm.GetComponent<SphereCollider>().radius * arm.transform.localScale.x))
+        {
+            if (coll.gameObject.name == "Glass")
+            {
+                m_cameraController.setZoom(true);
+                m_reachedGlass = true;
+            }
+        }
     }
 
     public bool lookingAtEnemy()
