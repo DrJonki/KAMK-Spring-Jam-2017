@@ -15,9 +15,10 @@ public class SceneController : MonoBehaviour {
 	
 	void Update ()
     {
-		if (m_enemyController.lookingAtPlayer() && m_playerController.lookingAtEnemy())
+		if (m_enemyController.lookingAtPlayer() && m_playerController.lookingAtEnemy() && !m_playerController.atGlass())
         {
-            Application.Quit();
+            Debug.Log("Defeat");
+            //Application.Quit();
         }
 	}
 }

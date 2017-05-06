@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour {
         LookingAtPlayer,
     }
     private State m_state = State.LookingAway;
-    private float m_turnCounter = 0f;
+    private float m_stateTimer = 0f;
 
     public float randomTurnTimeMin = 0.5f;
     public float randomTurnTimeMax = 5.0f;
@@ -23,20 +23,38 @@ public class EnemyController : MonoBehaviour {
 	
 	void Update ()
     {
-        if (turning())
+        if ((m_stateTimer -= Time.deltaTime) <= 0f)
         {
-
-        }
-
-        if ((m_turnCounter -= Time.deltaTime) <= 0f)
-        {
-            m_state = State.Turning;
+            switch (m_state)
+            {
+                case State.LookingAtPlayer:
+                    {
+                        m_state = State.LookingAway;
+                        Debug.Log("Looking away");
+                        randomizeTurnTime();
+                        break;
+                    }
+                case State.LookingAway:
+                    {
+                        m_state = State.Turning;
+                        Debug.Log("Turning");
+                        m_stateTimer = 0.5f;
+                        break;
+                    }
+                case State.Turning:
+                    {
+                        m_state = State.LookingAtPlayer;
+                        Debug.Log("Watching");
+                        randomizeTurnTime();
+                        break;
+                    }
+            }
         }
 	}
 
     private void randomizeTurnTime()
     {
-        m_turnCounter = Random.Range(randomTurnTimeMin, randomTurnTimeMax);
+        m_stateTimer = Random.Range(randomTurnTimeMin, randomTurnTimeMax);
     }
 
     public bool lookingAtPlayer()

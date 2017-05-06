@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     public Collider glassCollider;
     public float armRotationSpeed = 10f;
     public float movementSpeed = 2f;
+    public bool armsFollowMouse = false;
     
 	void Start ()
     {
@@ -53,14 +54,17 @@ public class PlayerController : MonoBehaviour {
 
     private void armRotation()
     {
-        Transform pivot = transform.FindChild("ArmPivot");
-        Vector3 targetDir = m_cameraController.mousePoint() - pivot.position;
+        if (armsFollowMouse)
+        {
+            Transform pivot = transform.FindChild("ArmPivot");
+            Vector3 targetDir = m_cameraController.mousePoint() - pivot.position;
 
-        pivot.rotation = Quaternion.Slerp(
-            pivot.rotation,
-            Quaternion.Euler(0, 0, -90) * Quaternion.LookRotation(targetDir, -Vector3.forward),
-            Time.deltaTime * armRotationSpeed
-        );
+            pivot.rotation = Quaternion.Slerp(
+                pivot.rotation,
+                Quaternion.Euler(0, 0, -90) * Quaternion.LookRotation(targetDir, -Vector3.forward),
+                Time.deltaTime * armRotationSpeed
+            );
+        }
     }
 
     private void detectReach()

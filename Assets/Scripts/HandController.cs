@@ -29,6 +29,15 @@ public class HandController : MonoBehaviour {
             Vector3 pos = Vector3.Slerp(transform.position, m_cameraController.mousePoint(), Time.deltaTime);
             pos.z = transform.position.z;
             transform.position = pos;
+
+            Transform pill = m_hand.transform.FindChild("Pill");
+            foreach (Collider coll in Physics.OverlapSphere(pill.position, pill.GetComponent<SphereCollider>().radius))
+            {
+                if (coll.gameObject.name == "PillDetector")
+                {
+                    Debug.Log("Victory");
+                }
+            }
         }
         else
         {
