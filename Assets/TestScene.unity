@@ -757,6 +757,9 @@ MonoBehaviour:
   turnTime: 1
   randomTurnTimeMin: 0.5
   randomTurnTimeMax: 5
+  idleTexture: {fileID: 2800000, guid: 473367458ba0fdf4dbf70fffa004d839, type: 3}
+  idleTexture2: {fileID: 2800000, guid: b00fafdce184a724f9a4e57cb37b553c, type: 3}
+  turningTexture: {fileID: 2800000, guid: 9ad6dbfde79c3464db4aabf60a44e79a, type: 3}
 --- !u!1 &1071801220
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,7 +824,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1319958084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.901, y: 0.966, z: 0}
+  m_LocalPosition: {x: -1.159, y: 0.911, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1667116667}
