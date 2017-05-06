@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour {
 
@@ -18,7 +19,7 @@ public class SceneController : MonoBehaviour {
 		if (m_enemyController.lookingAtPlayer() && m_playerController.lookingAtEnemy() && !m_playerController.atGlass())
         {
             Debug.Log("Defeat");
-            //Application.Quit();
+            SceneManager.LoadScene("FailScene");
         }
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HandController : MonoBehaviour {
 
@@ -36,6 +37,7 @@ public class HandController : MonoBehaviour {
                 if (coll.gameObject.name == "PillDetector")
                 {
                     Debug.Log("Victory");
+                    SceneManager.LoadScene("SuccessScene");
                 }
             }
         }
