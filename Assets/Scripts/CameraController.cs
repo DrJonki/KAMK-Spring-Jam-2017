@@ -38,6 +38,9 @@ public class CameraController : MonoBehaviour {
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, m_initialZoom, Time.deltaTime * zoomSpeed);
             transform.position = Vector3.Slerp(transform.position, m_initialPos, Time.deltaTime * zoomSpeed);
         }
+
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.volume = (cam.fieldOfView - zoomFov) / 1f;
     }
 
     public Vector3 mousePoint()
