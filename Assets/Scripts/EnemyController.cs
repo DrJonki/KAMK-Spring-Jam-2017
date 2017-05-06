@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour {
     private State m_state = State.LookingAway;
     private float m_stateTimer = 0f;
 
+    public float turnTime = 1f;
     public float randomTurnTimeMin = 0.5f;
     public float randomTurnTimeMax = 5.0f;
     
@@ -38,7 +39,7 @@ public class EnemyController : MonoBehaviour {
                     {
                         m_state = State.Turning;
                         Debug.Log("Turning");
-                        m_stateTimer = 0.5f;
+                        m_stateTimer = turnTime;
                         break;
                     }
                 case State.Turning:

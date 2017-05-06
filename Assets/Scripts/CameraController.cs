@@ -61,6 +61,6 @@ public class CameraController : MonoBehaviour {
 
     public bool isZoom()
     {
-        return m_zoom && GetComponent<Camera>().fieldOfView <= zoomFov + 1f;
+        return m_zoom && GetComponent<Camera>().fieldOfView <= zoomFov + 10f;
     }
 }
