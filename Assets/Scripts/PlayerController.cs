@@ -36,15 +36,15 @@ public class PlayerController : MonoBehaviour {
             Vector3 pos = transform.position;
             float offset = Time.deltaTime * movementSpeed;
 
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
                 m_state = State.LookingAtEnemy;
                 pos.x -= offset;
             }
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 m_state = State.LookingAway;
-                pos.x += offset;
+                pos.x += offset / 2;
             }
 
             transform.position = pos;

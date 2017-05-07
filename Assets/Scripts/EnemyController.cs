@@ -17,13 +17,16 @@ public class EnemyController : MonoBehaviour {
     public float turnTime = 1f;
     public float randomTurnTimeMin = 0.5f;
     public float randomTurnTimeMax = 5.0f;
-    public Texture idleTexture;
-    public Texture idleTexture2;
-    public Texture turningTexture;
-    public Texture watchingTexture;
+    public Sprite idleSprite2;
+    public Sprite turningSprite;
+    public Sprite watchingSprite;
+    public Sprite idleSprite;
+
+    GameObject render;
 
     void Start ()
     {
+        render = GameObject.Find("Enemy/Sprite");
         randomizeTurnTime();
 	}
 	
@@ -35,13 +38,13 @@ public class EnemyController : MonoBehaviour {
             {
                 if ((m_idleTexTimer -= Time.deltaTime) <= 0f)
                 {
-                    setTexture(idleTexture);
+                    setTexture(idleSprite);
                 }
             }
 
             else if (Random.Range(0f, 100f) < 0.4f)
             {
-                setTexture(idleTexture2);
+                setTexture(idleSprite2);
                 m_idleTexTimer = 0.5f;
             }
         }
@@ -55,7 +58,7 @@ public class EnemyController : MonoBehaviour {
                         m_state = State.LookingAway;
                         Debug.Log("Looking away");
                         randomizeTurnTime();
-                        setTexture(idleTexture);
+                        setTexture(idleSprite);
                         invert();
                         break;
                     }
@@ -64,7 +67,7 @@ public class EnemyController : MonoBehaviour {
                         m_state = State.Turning;
                         Debug.Log("Turning");
                         m_stateTimer = turnTime;
-                        setTexture(turningTexture);
+                        setTexture(turningSprite);
                         break;
                     }
                 case State.Turning:
@@ -72,7 +75,7 @@ public class EnemyController : MonoBehaviour {
                         m_state = State.LookingAtPlayer;
                         Debug.Log("Watching");
                         randomizeTurnTime();
-                        setTexture(idleTexture);
+                        setTexture(idleSprite);
                         invert();
                         break;
                     }
@@ -85,9 +88,9 @@ public class EnemyController : MonoBehaviour {
         m_stateTimer = Random.Range(randomTurnTimeMin, randomTurnTimeMax);
     }
 
-    private void setTexture(Texture tex)
+    private void setTexture(Sprite sprite)
     {
-        GetComponent<MeshRenderer>().material.mainTexture = tex;
+        render.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
     private void invert()
