@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour {
     private float m_stateTimer = 0f;
     private float m_idleTexTimer = 0.5f;
     private GameObject m_render;
+    private PlayerController m_playerController;
 
     public float turnTime = 1f;
     public float randomTurnTimeMin = 0.5f;
@@ -26,6 +27,7 @@ public class EnemyController : MonoBehaviour {
     void Start ()
     {
         m_render = GameObject.Find("Enemy/Sprite");
+        m_playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         setTexture(idleSprite);
         
         randomizeTurnTime();
@@ -50,7 +52,7 @@ public class EnemyController : MonoBehaviour {
             }
         }
 
-        if ((m_stateTimer -= Time.deltaTime) <= 0f)
+        if (!m_playerController.atGlass() && (m_stateTimer -= Time.deltaTime) <= 0f)
         {
             switch (m_state)
             {
