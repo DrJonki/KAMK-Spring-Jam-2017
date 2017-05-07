@@ -67,6 +67,11 @@ public class PlayerController : MonoBehaviour {
                 m_state = State.LookingAtEnemy;
                 pos.x -= offset;
             }
+            else if (m_state == State.LookingAtEnemy)
+            {
+                walkSound.volume = 0f;
+            }
+
             if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 m_state = State.LookingAway;
