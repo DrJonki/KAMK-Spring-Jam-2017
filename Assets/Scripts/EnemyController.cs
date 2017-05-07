@@ -71,6 +71,7 @@ public class EnemyController : MonoBehaviour {
                         Debug.Log("Turning");
                         m_stateTimer = turnTime;
                         setTexture(turningSprite);
+                        GetComponent<AudioSource>().Play();
                         break;
                     }
                 case State.Turning:

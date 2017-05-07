@@ -78,6 +78,10 @@ public class PlayerController : MonoBehaviour {
             transform.position = pos;
             detectReach();
         }
+        else
+        {
+            walkSound.volume = 0f;
+        }
     }
 
     private void armRotation()
