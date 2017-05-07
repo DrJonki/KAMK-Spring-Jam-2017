@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 4d08b293e2451574683dcd13a26e878f
-timeCreated: 1494113133
+guid: 21931f6737f3bcf429f9385c126f2f62
+timeCreated: 1494158650
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -11,32 +11,27 @@ ModelImporter:
     100006: Car
     100008: Door
     100010: Road
-    100012: Text
     400000: Bar
     400002: //RootNode
     400004: Building
     400006: Car
     400008: Door
     400010: Road
-    400012: Text
     2300000: Bar
     2300002: Building
     2300004: Car
     2300006: Door
     2300008: Road
-    2300010: Text
     3300000: Bar
     3300002: Building
     3300004: Car
     3300006: Door
     3300008: Road
-    3300010: Text
     4300000: Bar
     4300002: Road
     4300004: Building
     4300006: Door
-    4300008: Text
-    4300010: Car
+    4300008: Car
     9500000: //RootNode
   materials:
     importMaterials: 1
