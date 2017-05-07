@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
     public Sprite idleTexture;
     public Sprite[] sneakTextures = new Sprite[3];
     public float textureSwitchTime = 0.1f;
+    public AudioSource walkSound;
     
 	void Start ()
     {
@@ -57,6 +58,8 @@ public class PlayerController : MonoBehaviour {
                     if (++m_currentTexture >= sneakTextures.Length)
                         m_currentTexture = 0;
 
+                    walkSound.volume = 0.1f;
+
                     setTexture(sneakTextures[m_currentTexture]);
                     m_textureSwitchTimer = textureSwitchTime;
                 }
@@ -69,6 +72,7 @@ public class PlayerController : MonoBehaviour {
                 m_state = State.LookingAway;
                 setTexture(idleTexture);
                 pos.x += offset / 2;
+                walkSound.volume = 0f;
             }
 
             transform.position = pos;
