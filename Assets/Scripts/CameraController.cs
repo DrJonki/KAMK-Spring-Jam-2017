@@ -39,7 +39,7 @@ public class CameraController : MonoBehaviour {
             m_secondCam.orthographicSize = Mathf.Max(2.5f, m_secondCam.orthographicSize * 0.9f);
 
             Vector3 targetPos = m_glassObject.transform.position;
-            targetPos.y += m_glassObject.GetComponent<SpriteRenderer>().bounds.extents.y * 1.2f;
+            targetPos.y += m_glassObject.GetComponent<SpriteRenderer>().bounds.extents.y * 1.1f;
             targetPos.z = transform.position.z;
             transform.position = Vector3.Slerp(transform.position, targetPos, Time.deltaTime * zoomSpeed);
         }
