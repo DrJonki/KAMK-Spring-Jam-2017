@@ -12,15 +12,24 @@ public class PlayerController : MonoBehaviour {
     private State m_state = State.LookingAway;
     private bool m_reachedGlass = false;
     private CameraController m_cameraController;
+    private SpriteRenderer m_render;
+    private float m_textureSwitchTimer = 0f;
+    private int m_currentTexture = 0;
     
     public Collider glassCollider;
     public float armRotationSpeed = 10f;
     public float movementSpeed = 2f;
     public bool armsFollowMouse = false;
+    public Sprite idleTexture;
+    public Sprite[] sneakTextures = new Sprite[3];
+    public float textureSwitchTime = 0.1f;
     
 	void Start ()
     {
         m_cameraController = GameObject.Find("Main Camera").GetComponent<CameraController>();
+        m_render = transform.FindChild("Sprite").GetComponent<SpriteRenderer>();
+        setTexture(idleTexture);
+        m_textureSwitchTimer = textureSwitchTime;
 	}
 	
 	void Update ()
@@ -38,12 +47,27 @@ public class PlayerController : MonoBehaviour {
 
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
+                if (m_state == State.LookingAway)
+                {
+                    setTexture(sneakTextures[0]);
+                    m_textureSwitchTimer = textureSwitchTime;
+                }
+                else if ((m_textureSwitchTimer -= Time.deltaTime) <= 0f)
+                {
+                    if (++m_currentTexture >= sneakTextures.Length)
+                        m_currentTexture = 0;
+
+                    setTexture(sneakTextures[m_currentTexture]);
+                    m_textureSwitchTimer = textureSwitchTime;
+                }
+
                 m_state = State.LookingAtEnemy;
                 pos.x -= offset;
             }
             if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 m_state = State.LookingAway;
+                setTexture(idleTexture);
                 pos.x += offset / 2;
             }
 
@@ -79,6 +103,11 @@ public class PlayerController : MonoBehaviour {
                 m_reachedGlass = true;
             }
         }
+    }
+
+    private void setTexture(Sprite tex)
+    {
+        m_render.sprite = tex;
     }
 
     public bool lookingAtEnemy()

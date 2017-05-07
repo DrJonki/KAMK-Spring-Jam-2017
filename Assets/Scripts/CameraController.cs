@@ -5,6 +5,9 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 
     private GameObject m_glassObject;
+    private Transform m_playerObject;
+    private Transform m_enemyObject;
+    private float m_initialDistance;
     private bool m_zoom = false;
     private float m_initialZoom;
     private Vector3 m_initialPos;
@@ -16,6 +19,9 @@ public class CameraController : MonoBehaviour {
 	void Start ()
     {
         m_glassObject = GameObject.Find("Glass");
+        m_playerObject = GameObject.Find("Player").transform;
+        m_enemyObject = GameObject.Find("Enemy").transform;
+        m_initialDistance = m_playerObject.position.x - m_enemyObject.position.x;
         m_initialZoom = GetComponent<Camera>().fieldOfView;
         m_initialPos = transform.position;
 	}
@@ -40,7 +46,10 @@ public class CameraController : MonoBehaviour {
         }
 
         AudioSource audio = GetComponent<AudioSource>();
-        audio.volume = (cam.fieldOfView - zoomFov) / 1f;
+        audio.volume = 1f - (cam.fieldOfView - zoomFov) / (m_initialZoom - zoomFov);
+
+        float advance = 1f - (m_playerObject.position.x - m_enemyObject.position.x) / (m_initialDistance - m_enemyObject.position.x);
+        Debug.Log(advance);
     }
 
     public Vector3 mousePoint()
