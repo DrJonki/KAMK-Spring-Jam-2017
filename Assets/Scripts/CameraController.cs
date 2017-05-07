@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour {
     private Vector3 m_shakeDirection;
     private Vector3 m_targetShakeDirection;
     private float m_shakeCounter = 0.5f;
+    private Camera m_secondCam;
 
     public Collider collisionMask;
     public float zoomFov = 3f;
@@ -25,6 +26,7 @@ public class CameraController : MonoBehaviour {
         m_initialDistance = m_playerObject.position.x;
         m_initialZoom = GetComponent<Camera>().fieldOfView;
         m_initialPos = transform.position;
+        m_secondCam = GameObject.Find("BackgroundCamera").GetComponent<Camera>();
 	}
 	
 	void Update ()
@@ -34,6 +36,7 @@ public class CameraController : MonoBehaviour {
         if (m_zoom)
         {
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, zoomFov, Time.deltaTime * zoomSpeed);
+            m_secondCam.orthographicSize = Mathf.Max(2.5f, m_secondCam.orthographicSize * 0.9f);
 
             Vector3 targetPos = m_glassObject.transform.position;
             targetPos.y += m_glassObject.GetComponent<MeshRenderer>().bounds.extents.y * 1.5f;
