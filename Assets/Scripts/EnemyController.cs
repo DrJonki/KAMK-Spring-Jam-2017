@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour {
     private State m_state = State.LookingAway;
     private float m_stateTimer = 0f;
     private float m_idleTexTimer = 0.5f;
+    private GameObject m_render;
+    private PlayerController m_playerController;
 
     public float turnTime = 1f;
     public float randomTurnTimeMin = 0.5f;
@@ -22,11 +24,12 @@ public class EnemyController : MonoBehaviour {
     public Sprite watchingSprite;
     public Sprite idleSprite;
 
-    GameObject render;
-
     void Start ()
     {
-        render = GameObject.Find("Enemy/Sprite");
+        m_render = GameObject.Find("Enemy/Sprite");
+        m_playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        setTexture(idleSprite);
+        
         randomizeTurnTime();
 	}
 	
@@ -49,7 +52,7 @@ public class EnemyController : MonoBehaviour {
             }
         }
 
-        if ((m_stateTimer -= Time.deltaTime) <= 0f)
+        if (!m_playerController.atGlass() && (m_stateTimer -= Time.deltaTime) <= 0f)
         {
             switch (m_state)
             {
@@ -68,6 +71,7 @@ public class EnemyController : MonoBehaviour {
                         Debug.Log("Turning");
                         m_stateTimer = turnTime;
                         setTexture(turningSprite);
+                        GetComponent<AudioSource>().Play();
                         break;
                     }
                 case State.Turning:
@@ -90,13 +94,20 @@ public class EnemyController : MonoBehaviour {
 
     private void setTexture(Sprite sprite)
     {
-        render.GetComponent<SpriteRenderer>().sprite = sprite;
+        m_render.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
     private void invert()
     {
         Vector3 scale = transform.localScale;
         scale.x *= -1f;
+        transform.localScale = scale;
+    }
+
+    private void restoreScale()
+    {
+        Vector3 scale = transform.localScale;
+        scale.x = 1f;
         transform.localScale = scale;
     }
 
